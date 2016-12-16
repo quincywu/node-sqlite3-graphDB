@@ -39,60 +39,7 @@ And for each database added by the user, 2 more tables are added xxxx_node, xxxx
 
 ### Documentation
 
-- node.js
-    * Node#Node( name )
-        - Constructor create empty node with name parameter. Has properties name and edge_list
-    * Node#addEdge( end_node, edge_name = "" )
-        - Set current node relate to end_node with relationship edge_name, edge_name is optional.
-    * Node#deleteEdge( end_node, edge_name = "" )
-        - Delete relationship with end_node, if no edge_name is provide delete relationship matching '' with edge_name, if edge_name is provide delete one relationship matching edge_name with end_node
-    * Node#deleteAllEdge( end_node )
-        - Delete all relationship with end_node
-    * Node#modifyNode
-        - Modify the name of the node. Graph does not use this function. (deprecated)
-
-- graph.js
-    * Graph#Graph()
-        - Constructor create empty graph. Has properties node_list
-    * Graph#addEdge( start_node, end_node, relationship = '' )
-        - Add Edge between start_node to end_node with relationship [optional], ** directional **
-    * Graph#addMultEdge( objArray )
-        - Add multiple Edge as an array. objArray has the format [['start_node', 'end_node', 'relationship'], [...], ...]
-    * Graph#deleteEdge ( start_node, end_node, relationship = '' )
-        - Delete edge on a graph between start_node and end_node with relationship [optional]
-    * Graph#deleteNode( node )
-        - Delete node on the graph, and all relationship with node
-    * Graph#printNodes
-        - Display all nodes and relationships on graph
-
-- db.js
-    * Database#Database( name )
-        - Constructor create empty database with name parameter, and create tables of later transactions.
-    * Database#saveGraph( graph )
-        - Save graph to the database. This function only add new relationship and new node into the database. It does not modify existing node and edge.
-        - To save every connection in graph, user function `deleteAllEdge()` or `deleteAll()` to clear the database before saving new graph.
-    * Database#getGraph( callback ) //TODO
-        - Get entire graph in database. Display result in console and Use callback function to display to client who called this method.
-    * Database#searchNode( nodeName, callback )
-        - Search database for node data partly or fully match the input string. Display result on console, and callback function(rows) where each row = ['node1']
-    * Database#searchEdge( edge, callback )
-        - Search database for edge data party or fully match the input string. if input edge is not provided, it would search for empty edge ''. Display result on console, callback function(rows) where each row = ['start', 'end', 'relationship']
-    * Database#listIncomingEdge( nodeName, callback )
-        - Search database for incoming edge to nodeName. The algorithm search for end_node equals nodeName. Display result on console, callback function(rows) where each row = ['node', 'relationship']
-    * Database#listOutgoingEdge( nodeName, callback )
-        - Search database for outgoing edge of nodeName. The algorithm search for start_node equals nodeName. Display result on console, callback function(rows) where each row = ['node', 'relationship']
-    * Database#listAllRelationship( nodeName, callback )
-        - Search database for all relationship with nodeName. The algorithm search for start_node or end_node equals nodeName. Display result on console, callback function(rows) where each row = ['node', 'relationship']
-    * Database#cleanUnrelated() // TODO
-
-    * Database#deleteAll()
-        - Delete all entry in database in both userDefined_node table and userDefined_edge table
-    * Database#deleteAllEdge()
-        - Delete all edges in database in userDefined_edge table
-    * Database#closeDb()
-        - Close database, recommend to do after every database opened.
-
-
+See Documentation in wiki page.
 
 ## Versioning or Future development
 
