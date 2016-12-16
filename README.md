@@ -39,7 +39,7 @@ And for each database added by the user, 2 more tables are added xxxx_node, xxxx
 
 ### Documentation
 
-See Documentation in wiki page.
+See [Documentation](https://github.com/quincywu/node-sqlite3-graphDB/wiki/Documentation) in wiki page.
 
 ## Versioning or Future development
 
