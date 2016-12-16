@@ -15,27 +15,30 @@ Check out the link below to install node and sqlite3
 https://github.com/mapbox/node-sqlite3
 
 On Ubuntu:
+    ```
     sudo apt-get install node
     sudo apt-get install sqlite3
+    ```
 
 ### Installing
 
 Import the graph.js and db.js in the source code.
-For example:    let Database = require('./src/db');
-                let Database = require('./src/graph');
+For example:    `let Database = require('./src/db');`
+                `let Database = require('./src/graph');`
 
 
 Client.js is a working example of the graph class and db class.
 
 ### Design choice
 
-When I start the project, I was writing a bi-directional graph. When I was about to finished I modified the code to a directional graph with subject node and object node with a relationship predicate.
+When I started the project, I was writing a bi-directional graph. When I was about to finished I modified the code to a directional graph with subject node and object node with a relationship predicate.
 
-On the database, it is separate into 3 tables.
+On the database, it is separated into 3 tables.
  - graph table, store all different database created by the Users, ** NO duplicate database allowed **
  - userDefined_node table, store all nodes in the database, ** NO duplicate node allowed **
  - userDefined_edge table, store all edges, subject_node id, and object_node id. Subject_node_id is related to object_node_id with relationship edge. A node can relate to any node more than once in different relationship, including self. ** NO duplicate relationship between two of the same node is allowed, NODE_A CANNOT RELATED TO NODE_B WITH SAME relationship TWICE **
 And for each database added by the user, 2 more tables are added xxxx_node, xxxx_edge, and add an entry to the graph table.
+In database, the user is able to connect 2 graph objects together by saving into the same database and have one node exists in both graph.
 
 ### Documentation
 

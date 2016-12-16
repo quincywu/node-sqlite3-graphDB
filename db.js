@@ -40,7 +40,7 @@ debugger;
 }
 
 function insertMain() {
-    console.log("Insert into graph database ");
+
     db.serialize(function(){
 
         db.run("INSERT INTO graph VALUES (0, 'test')", function(err, row){
@@ -52,8 +52,6 @@ function insertMain() {
         db.run("DELETE FROM graph WHERE id = 0");
     });
 
-    // db.run("INSERT INTO graph VALUES (NULL, '" + tableName + "')");
-    console.log("Finish into graph database ");
 }
 
 Database.prototype.saveGraph = function ( graph ){
@@ -80,7 +78,7 @@ Database.prototype.saveGraph = function ( graph ){
                 db.run("INSERT INTO " + tableName + "_edge (id, node_one_id, node_two_id, relationship) VALUES (0, '0', '0', 'test')");
 
                 for(var key in graph.node_list[i].edge_list){
-                    if (key) {
+                    if (key && graph.node_list[i].edge_list[key]) {
 
                         for(var j = 0; j < graph.node_list[i].edge_list[key].length; j ++) {
                             let node1 = graph.node_list[i].name;
@@ -115,7 +113,7 @@ Database.prototype.getGraph = function(){
 }
 
 Database.prototype.searchNode = function( nodeName, callback ){
-
+    console.log("Searching node");
     var query = "SELECT n.node AS node FROM " + tableName + "_node n WHERE n.node like '%" + nodeName + "%' ";
 
     db.all(query, function(err, rows) {
@@ -134,12 +132,14 @@ Database.prototype.searchNode = function( nodeName, callback ){
         }
         console.log("]");
         callback(rows);
+        console.log("Finish searching node");
         return;
     } );
 
 }
 
 Database.prototype.searchEdge = function( edge, callback ){
+    console.log("Searching edge");
 
     var query;
     if(edge)
@@ -156,7 +156,7 @@ Database.prototype.searchEdge = function( edge, callback ){
             return;
         }
 
-        console.log( edge + " can be found in edge between start and end end node [" );
+        console.log( edge + " can be found in edge between start and end node [" );
         if(rows){
             rows.forEach( function (row) {
                 console.log("edge: " + row.relationship + ", start: " + row.start + ", end: " + row.end);
@@ -164,6 +164,7 @@ Database.prototype.searchEdge = function( edge, callback ){
         }
         console.log("]");
         callback(rows);
+        console.log("Finish searching edge");
         return;
     } );
 
@@ -189,6 +190,7 @@ Database.prototype.listIncomingEdge = function ( nodeName, callback ) {
         }
         console.log("]");
         callback(rows);
+        console.log("Finish listing incoming edge");
         return;
     } );
 
@@ -214,6 +216,7 @@ Database.prototype.listOutgoingEdge = function ( nodeName, callback ) {
         }
         console.log("]");
         callback(rows);
+        console.log("Finish listing outgoing edge");
         return;
     } );
 }
@@ -238,6 +241,7 @@ Database.prototype.listAllRelationship = function ( nodeName, callback ) {
         }
         console.log("]");
         callback(rows);
+        console.log("Finish listing all related edge");
         return;
     } );
 
@@ -250,6 +254,7 @@ Database.prototype.cleanUnrelated = function() {
 }
 
 Database.prototype.deleteAll = function() {
+    console.log("Empty database");
     db.run("DELETE FROM " + tableName + "_edge");
     db.run("DELETE FROM " + tableName + "_node");
 }
