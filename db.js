@@ -108,8 +108,32 @@ Database.prototype.saveGraph = function ( graph ){
     console.log("DONE ");
 }
 
-Database.prototype.getGraph = function(){
-    // TODO
+Database.prototype.getGraph = function( callback ){
+
+    console.log("Get all relationships and nodes");
+    var query = "SELECT n.node AS start, n2.node AS end, e.relationship AS relationship from " + tableName + "_edge e INNER JOIN " + tableName + "_node n ON n.id = e.node_one_id INNER JOIN " + tableName + "_node n2 ON n2.id = e.node_two_id ";
+
+    db.all(query, function(err, rows) {
+
+        if (err){
+            console.log('error in searchNode ' + err);
+            callback("error");
+            return;
+        }
+
+        console.log( "graph = [" );
+        if(rows){
+            rows.forEach( function (row) {
+                console.log("start: " + row.start + ", end: " + row.end + ", relationship: " + row.relationship );
+            });
+        }
+        console.log("]");
+        callback(rows);
+        console.log("Finish getGraph");
+        return;
+
+    } );
+
 }
 
 Database.prototype.searchNode = function( nodeName, callback ){

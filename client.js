@@ -119,4 +119,21 @@ db.listAllRelationship("qui", function(rows) {
 
 });
 
+db.getGraph( function(rows) {
+    console.log("Get graph result callback");
+    if(rows !== "error"){
+        if(rows){
+            var graph3 = new Graph();
+
+            rows.forEach( function (row) {
+                graph3.addEdge(row.start, row.end, row.relationship);
+            });
+            console.log("print graph stored in database");
+            graph3.printNodes();
+            console.log("\n");
+        }
+    }
+
+});
+
 db.closeDb();
